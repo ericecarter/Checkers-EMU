@@ -83,9 +83,7 @@ public class Evaluator {
         //do a test to see if anymore move are possible or if we have
         //gone "deep" enough
         if (cutOffTest(successors, depth)) {
-            int temp;
-            temp = setBoardValue(move.getNp(), maxMoveBlacksTurn) - 3 * evalMoveFinder.allPossibleJumps.size();
-            return temp;
+            return setBoardValue(move.getNp(), maxMoveBlacksTurn) - 3 * evalMoveFinder.allPossibleJumps.size();
         }
         while (!successors.isEmpty()) {
             //remove first node and evaluate it
@@ -120,9 +118,7 @@ public class Evaluator {
         //do a test to see if anymore move are possible or if we have
         //gone "deep" enough
         if (cutOffTest(successors, depth)) {
-            int temp;
-            temp = setBoardValue(move.getNp(), minMoveBlacksTurn) - 3 * evalMoveFinder.allPossibleJumps.size();
-            return temp;
+            return setBoardValue(move.getNp(), minMoveBlacksTurn) - 3 * evalMoveFinder.allPossibleJumps.size();
         }
         while (!successors.isEmpty()) {
             //remove first node and evaluate it
@@ -228,8 +224,7 @@ public class Evaluator {
 
         //need check for king black and white jumps, as they can move back and forth (could be white/black pieces comibined?)
         //Formula/Equation for board Value  based on whether the computer is black or white
-        if (evalBlacksTurn) {
-            //boardValue = 2*numBlackPieces + 3*blackPiecesPos - 2*numWhitePieces - 3*whitePiecesPos - 10*givenOppJumps;
+        if (evalBlacksTurn) {           
             boardValue = 3 * numBlackPieces + blackPiecesPos - 4 * numWhitePieces - whitePiecesPos;// - 5 * givenOppJumps;
         } else {
             boardValue = 3 * numWhitePieces + whitePiecesPos - 4 * numBlackPieces - blackPiecesPos;// - 5 * givenOppJumps;
