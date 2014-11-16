@@ -33,12 +33,12 @@ public class Moves {
 
     }
 
-    public void getCurrentPosition(char[] current) {
+    public void setCurrentPosition(char[] current) {
         currentPosition = new char[32];
         this.currentPosition = current;
     }
 
-    public void findJumps() {
+    private void findJumps() {
         allPossibleJumps = new ArrayList<Node>();
         char piece, kingPiece, enemy, enemyKing;
         if (blacksMove) {
@@ -2799,7 +2799,7 @@ public class Moves {
                     temp[21] = 'W';
                     allPossibleMoves.add(new Node(temp, 17, 21));
                 }
-                if (currentPosition[18] == '-') {
+                if (currentPosition[17] == '-') {
                     temp = currentPosition.clone();
                     temp[17] = '-';
                     temp[14] = 'W';

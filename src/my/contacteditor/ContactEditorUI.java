@@ -690,7 +690,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
                             moveFinder.blacksMove = true;
                         }
                         ConvertToOneDimension();
-                        moveFinder.getCurrentPosition(currentPosition);
+                        moveFinder.setCurrentPosition(currentPosition);
                         break;
                     }
                 }
@@ -711,7 +711,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
                             moveFinder.blacksMove = true;
                         }
                         ConvertToOneDimension();
-                        moveFinder.getCurrentPosition(currentPosition);
+                        moveFinder.setCurrentPosition(currentPosition);
                         moveFinder.findAllMoves();
                     }
                 }
@@ -762,7 +762,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
         drawBoard(); //draw the new board
         moveFinder.blacksMove = false;//players turn now
         ConvertToOneDimension(); //convert the 2-d array to one d
-        moveFinder.getCurrentPosition(currentPosition); //send the current position to movefinder
+        moveFinder.setCurrentPosition(currentPosition); //send the current position to movefinder
         moveFinder.findAllMoves(); //find all moves
 
     }//GEN-LAST:event_WhiteBoxActionPerformed
@@ -775,7 +775,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
         WhiteBox.setSelected(false);
         Sentence.setVisible(false);
         ConvertToOneDimension();
-        moveFinder.getCurrentPosition(currentPosition);
+        moveFinder.setCurrentPosition(currentPosition);
         moveFinder.findAllMoves();
     }//GEN-LAST:event_BlackBoxActionPerformed
 

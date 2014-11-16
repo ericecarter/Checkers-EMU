@@ -46,7 +46,7 @@ public class Evaluator {
         int value, maxValue = Integer.MIN_VALUE;
 
         //give the evaluator's move finder the current board
-        evalMoveFinder.getCurrentPosition(currentBoard);
+        evalMoveFinder.setCurrentPosition(currentBoard);
         //update moveFinder to find right color's moves
         evalMoveFinder.blacksMove = blacksMove;
         //find all possible moves from the current position
@@ -75,7 +75,7 @@ public class Evaluator {
         //update move Finders boolean
         evalMoveFinder.blacksMove = maxMoveBlacksTurn;
         //update move finders current position
-        evalMoveFinder.getCurrentPosition(move.getNp());
+        evalMoveFinder.setCurrentPosition(move.getNp());
         // find all the possible moves
         evalMoveFinder.findAllMoves();
         //assign those moves to be evaluated
@@ -112,7 +112,7 @@ public class Evaluator {
         //update move Finders boolean
         evalMoveFinder.blacksMove = minMoveBlacksTurn;
         //update move finders current position
-        evalMoveFinder.getCurrentPosition(move.getNp());
+        evalMoveFinder.setCurrentPosition(move.getNp());
         // find all the possible moves
         evalMoveFinder.findAllMoves();
         //assign those moves to be evaluated
