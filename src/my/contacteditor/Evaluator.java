@@ -83,13 +83,15 @@ public class Evaluator {
         //do a test to see if anymore move are possible or if we have
         //gone "deep" enough
         if (cutOffTest(successors, depth)) {
-            return setBoardValue(move.getNp(), maxMoveBlacksTurn) - 3 * evalMoveFinder.allPossibleJumps.size();
+            int temp;
+            temp = setBoardValue(move.getNp(), maxMoveBlacksTurn) - 3 * evalMoveFinder.allPossibleJumps.size();
+            return temp;
         }
         while (!successors.isEmpty()) {
             //remove first node and evaluate it
             thisMove = (Node) successors.remove(0);
             //find the max value of this move
-            value = maxMove(thisMove, depth + 1, alpha, beta, maxMoveBlacksTurn);
+            value = minMove(thisMove, depth + 1, alpha, beta, maxMoveBlacksTurn);
             //keep track of the MOST MAX VALUE!!
             if (value > alpha) {
                 alpha = value;
@@ -118,7 +120,9 @@ public class Evaluator {
         //do a test to see if anymore move are possible or if we have
         //gone "deep" enough
         if (cutOffTest(successors, depth)) {
-            return setBoardValue(move.getNp(), minMoveBlacksTurn) - 3 * evalMoveFinder.allPossibleJumps.size();
+            int temp;
+            temp = setBoardValue(move.getNp(), minMoveBlacksTurn) - 3 * evalMoveFinder.allPossibleJumps.size();
+            return temp;
         }
         while (!successors.isEmpty()) {
             //remove first node and evaluate it
@@ -141,36 +145,43 @@ public class Evaluator {
         int numBlackPieces = 0, numWhitePieces = 0, blackPiecesPos = 0, whitePiecesPos = 0, boardValue;
 
         //positions on board with values for pieces being at
-        int[] posValue1 = {1, 2, 3, 4, 5, 12, 13, 20, 21, 28, 29, 30, 31, 32};
-        int[] posValue2 = {6, 7, 8, 9, 16, 17, 24, 25, 26, 27};
-        int[] posValue3 = {10, 11, 14, 15, 18, 19, 22, 23};
+        int[] posValue1 = {15, 18, 23};
+        int[] posValue2 = {10, 11, 14, 19, 22, 26, 27};
+        int[] posValue3 = {6, 7, 8, 9, 16, 17, 24, 25};
+        int[] posValue4 = {1, 2, 3, 4, 5, 12, 13, 20, 21, 28, 29, 30, 31, 32};
         //plus 1 to match board logic,check every cell for values to add to the variables
         for (int i = 0; i < 32; i++) {
             if (boardState[i] == 'b' || boardState[i] == 'B') {
 
                 //either is a b or B, b gets 1 and B gets 3
                 if (boardState[i] == 'b') {
-                    numBlackPieces++;
+                    numBlackPieces += 1;
                 } else {
-                    numBlackPieces = numBlackPieces + 3;
+                    numBlackPieces += 3;
                 }
 
                 //figure out which position value is associated with the piece
                 for (int o = 0; o < posValue1.length; o++) {
                     if (i + 1 == posValue1[o]) {
-                        blackPiecesPos++;
+                        blackPiecesPos += 1;
                     }
                 }
 
                 for (int o = 0; o < posValue2.length; o++) {
                     if (i + 1 == posValue2[o]) {
-                        blackPiecesPos = blackPiecesPos + 2;
+                        blackPiecesPos += 2;
                     }
                 }
 
                 for (int o = 0; o < posValue3.length; o++) {
                     if (i + 1 == posValue3[o]) {
-                        blackPiecesPos = blackPiecesPos + 3;
+                        blackPiecesPos += 3;
+                    }
+                }
+
+                for (int o = 0; o < posValue4.length; o++) {
+                    if (i + 1 == posValue4[o]) {
+                        blackPiecesPos += 4;
                     }
                 }
 
@@ -182,27 +193,33 @@ public class Evaluator {
 
                 //either is a w or W, w gets 1 and W gets 3
                 if (boardState[i] == 'w') {
-                    numWhitePieces++;
+                    numWhitePieces += 1;
                 } else {
-                    numWhitePieces = numWhitePieces + 3;
+                    numWhitePieces += 3;
                 }
 
                 //figure out which position value is associated with the piece
                 for (int o = 0; o < posValue1.length; o++) {
                     if (i + 1 == posValue1[o]) {
-                        whitePiecesPos++;
+                        whitePiecesPos += 1;
                     }
                 }
 
                 for (int o = 0; o < posValue2.length; o++) {
                     if (i + 1 == posValue2[o]) {
-                        whitePiecesPos = whitePiecesPos + 2;
+                        whitePiecesPos += 2;
                     }
                 }
 
                 for (int o = 0; o < posValue3.length; o++) {
                     if (i + 1 == posValue3[o]) {
-                        whitePiecesPos = whitePiecesPos + 3;
+                        whitePiecesPos += 3;
+                    }
+                }
+
+                for (int o = 0; o < posValue4.length; o++) {
+                    if (i + 1 == posValue4[o]) {
+                        whitePiecesPos += 4;
                     }
                 }
 
@@ -213,9 +230,9 @@ public class Evaluator {
         //Formula/Equation for board Value  based on whether the computer is black or white
         if (evalBlacksTurn) {
             //boardValue = 2*numBlackPieces + 3*blackPiecesPos - 2*numWhitePieces - 3*whitePiecesPos - 10*givenOppJumps;
-            boardValue = numBlackPieces + 3 * blackPiecesPos - 2 * numWhitePieces - whitePiecesPos;// - 5 * givenOppJumps;
+            boardValue = 3 * numBlackPieces + blackPiecesPos - 4 * numWhitePieces - whitePiecesPos;// - 5 * givenOppJumps;
         } else {
-            boardValue = numWhitePieces + 3 * whitePiecesPos - 2 * numBlackPieces - blackPiecesPos;// - 5 * givenOppJumps;
+            boardValue = 3 * numWhitePieces + whitePiecesPos - 4 * numBlackPieces - blackPiecesPos;// - 5 * givenOppJumps;
         }
 
         return boardValue;

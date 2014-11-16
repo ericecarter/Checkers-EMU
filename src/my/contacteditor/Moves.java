@@ -1308,7 +1308,6 @@ public class Moves {
     }
 
     private void findNonJumps() {
-        int index = 0;
         char[] temp;
 
         if (blacksMove) {
